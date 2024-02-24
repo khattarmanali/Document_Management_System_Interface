@@ -1,5 +1,5 @@
-import logo from "./logo.svg";
 import "./App.css";
+import UserLayout from "./layouts/UserLayout";
 import AppRoutes from "./routes";
 import { BrowserRouter } from "react-router-dom";
 
