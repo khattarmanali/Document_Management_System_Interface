@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from "react";
 
 const initialState = {
   token: null,
+  mobileNumber: null,
 };
 
 const reducer = (state, action) => {
@@ -10,6 +11,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         token: action.payload,
+      };
+    case "SET_MOBILE_NUMBER":
+      return {
+        ...state,
+        mobileNumber: action.payload,
       };
     default:
       return state;

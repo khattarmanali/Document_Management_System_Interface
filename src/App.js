@@ -3,16 +3,22 @@ import "./App.css";
 import AppRoutes from "./routes";
 import { BrowserRouter, useNavigate } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
+import { AlertProvider, AppSnackBar } from "./contexts/AlertProvider";
+import MainLayout from "./layout/MainLayout";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <UserProvider>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
-        </UserProvider>
+        <AlertProvider>
+          <UserProvider>
+            <BrowserRouter>
+              <MainLayout />
+              <AppRoutes />
+              <AppSnackBar />
+            </BrowserRouter>
+          </UserProvider>
+        </AlertProvider>
       </header>
     </div>
   );

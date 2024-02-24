@@ -6,10 +6,6 @@ import { useEffect } from "react";
 const AppRoutes = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    navigate("/auth/login");
-  }, [navigate]);
-
   return (
     <Routes>
       <Route path="/login" element={<LoginWithOtpForm />} />
