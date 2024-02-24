@@ -1,15 +1,18 @@
+import React, { useEffect } from "react";
 import "./App.css";
-import UserLayout from "./layouts/UserLayout";
 import AppRoutes from "./routes";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom";
+import { UserProvider } from "./contexts/UserContext";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
+        <UserProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </UserProvider>
       </header>
     </div>
   );
