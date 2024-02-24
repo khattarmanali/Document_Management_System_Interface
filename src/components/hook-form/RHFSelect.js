@@ -11,40 +11,8 @@ import {
   TextField,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import { Controller, FieldValues, useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import React from "react";
-interface Option {
-  value: string;
-  label: string;
-}
-
-interface RHFSelectProps {
-  name: string;
-  native?: boolean;
-  children: React.ReactNode;
-  helperText?: React.ReactNode;
-  maxHeight?: number;
-}
-
-interface RHFMultiSelectProps {
-  name: string;
-  chip?: boolean;
-  label?: string;
-  options: Option[];
-  checkbox?: boolean;
-  placeholder?: string;
-  helperText?: React.ReactNode;
-  sx?: React.CSSProperties;
-  type?: string;
-}
-
-RHFSelect.propTypes = {
-  name: PropTypes.string.isRequired,
-  native: PropTypes.bool,
-  children: PropTypes.node.isRequired,
-  helperText: PropTypes.node,
-  maxHeight: PropTypes.number,
-};
 
 export function RHFSelect({
   name,
@@ -53,8 +21,8 @@ export function RHFSelect({
   helperText,
   maxHeight = 220,
   ...other
-}: RHFSelectProps) {
-  const { control } = useFormContext<FieldValues>();
+}) {
+  const { control } = useFormContext();
 
   return (
     <Controller
@@ -103,17 +71,6 @@ export function RHFSelect({
   );
 }
 
-RHFMultiSelect.propTypes = {
-  name: PropTypes.string.isRequired,
-  chip: PropTypes.bool,
-  label: PropTypes.string,
-  options: PropTypes.array.isRequired,
-  checkbox: PropTypes.bool,
-  placeholder: PropTypes.string,
-  helperText: PropTypes.node,
-  sx: PropTypes.object,
-};
-
 export function RHFMultiSelect({
   name,
   chip,
@@ -124,10 +81,10 @@ export function RHFMultiSelect({
   helperText,
   sx,
   ...other
-}: RHFMultiSelectProps) {
-  const { control } = useFormContext<FieldValues>();
+}) {
+  const { control } = useFormContext();
 
-  const renderValues = (selectedIds: string[]) => {
+  const renderValues = (selectedIds) => {
     const selectedItems = options.filter((item) =>
       selectedIds.includes(item.value)
     );
@@ -167,7 +124,7 @@ export function RHFMultiSelect({
             displayEmpty={!!placeholder}
             labelId={name}
             input={<OutlinedInput fullWidth label={label} error={!!error} />}
-            renderValue={() => renderValues(field.value as string[])}
+            renderValue={() => renderValues(field.value || [])}
             MenuProps={{
               PaperProps: {
                 sx: { px: 1, maxHeight: 280 },
@@ -191,7 +148,7 @@ export function RHFMultiSelect({
             )}
 
             {options.map((option) => {
-              const selected = field.value.includes(option.value);
+              const selected = (field.value || []).includes(option.value);
 
               return (
                 <MenuItem
@@ -230,3 +187,22 @@ export function RHFMultiSelect({
     />
   );
 }
+
+RHFSelect.propTypes = {
+  name: PropTypes.string.isRequired,
+  native: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  helperText: PropTypes.node,
+  maxHeight: PropTypes.number,
+};
+
+RHFMultiSelect.propTypes = {
+  name: PropTypes.string.isRequired,
+  chip: PropTypes.bool,
+  label: PropTypes.string,
+  options: PropTypes.array.isRequired,
+  checkbox: PropTypes.bool,
+  placeholder: PropTypes.string,
+  helperText: PropTypes.node,
+  sx: PropTypes.object,
+};

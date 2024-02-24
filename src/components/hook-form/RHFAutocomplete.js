@@ -1,23 +1,7 @@
 import { Autocomplete, TextField } from "@mui/material";
-import { useFormContext, Controller, FieldValues } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import PropTypes from "prop-types";
 import React from "react";
-
-interface RHFAutocompleteProps {
-  name: string;
-  label: string;
-  helperText?: React.ReactNode;
-  options: any[]; // Replace 'any[]' with the actual type of your options
-  // Add any other props here
-}
-
-RHFAutocomplete.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  helperText: PropTypes.node,
-  options: PropTypes.array.isRequired, // Update with the actual PropTypes for options
-  // Add prop types for any other props here
-};
 
 export default function RHFAutocomplete({
   name,
@@ -25,8 +9,8 @@ export default function RHFAutocomplete({
   helperText,
   options,
   ...other
-}: RHFAutocompleteProps) {
-  const { control, setValue } = useFormContext<FieldValues>();
+}) {
+  const { control, setValue } = useFormContext();
 
   return (
     <Controller
@@ -49,7 +33,7 @@ export default function RHFAutocomplete({
               }}
               label={label}
               error={!!error}
-              helperText={error ? error?.message : helperText}
+              helperText={error ? error.message : helperText}
               {...params}
             />
           )}
@@ -59,3 +43,10 @@ export default function RHFAutocomplete({
     />
   );
 }
+
+RHFAutocomplete.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  helperText: PropTypes.node,
+  options: PropTypes.array.isRequired,
+};

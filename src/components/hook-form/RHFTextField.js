@@ -2,18 +2,7 @@ import { TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React from "react";
-import { Controller, FieldValues, useFormContext } from "react-hook-form";
-
-interface RHFTextFieldProps {
-  name: string;
-  helperText?: React.ReactNode;
-  label?: string;
-  multiline?: boolean;
-  rows?: number;
-  type?: string;
-
-  [key: string]: any;
-}
+import { Controller, useFormContext } from "react-hook-form";
 
 const useStyles = makeStyles(() => ({
   input: {
@@ -30,13 +19,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const RHFTextField: React.FC<RHFTextFieldProps> = ({
-  name,
-  helperText,
-  ...other
-}) => {
+const RHFTextField = ({ name, helperText, label, ...other }) => {
   const classes = useStyles();
-  const { control } = useFormContext<FieldValues>();
+  const { control } = useFormContext();
 
   return (
     <Controller
@@ -50,7 +35,7 @@ const RHFTextField: React.FC<RHFTextFieldProps> = ({
               borderRadius: "10px",
             },
           }}
-          label={other.label || name}
+          label={label || name}
           className={classes.input}
           fullWidth
           value={
@@ -59,7 +44,7 @@ const RHFTextField: React.FC<RHFTextFieldProps> = ({
               : field.value
           }
           error={!!error}
-          helperText={error ? error?.message : helperText}
+          helperText={error ? error.message : helperText}
           {...other}
           sx={{
             "& .MuiOutlinedInput-input": {

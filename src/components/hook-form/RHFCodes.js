@@ -1,30 +1,16 @@
 import { Stack, TextField } from "@mui/material";
 import PropTypes from "prop-types";
-import { Controller, FieldValues, useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import React, { useEffect, useRef } from "react";
 
-interface RHFCodesProps {
-  name?: string;
-  inputs?: string[];
-}
+export default function RHFCodes({ name = "", inputs = [], ...other }) {
+  const codesRef = useRef(null);
 
-RHFCodes.propTypes = {
-  name: PropTypes.string,
-  inputs: PropTypes.arrayOf(PropTypes.string),
-};
-
-export default function RHFCodes({
-  name = "",
-  inputs = [],
-  ...other
-}: RHFCodesProps) {
-  const codesRef = useRef<HTMLDivElement | null>(null);
-
-  const { control, setValue } = useFormContext<FieldValues>();
+  const { control, setValue } = useFormContext();
 
   useEffect(() => {
-    const handlePaste = (event: ClipboardEvent) => {
-      let data: any = event.clipboardData?.getData("text") || "";
+    const handlePaste = (event) => {
+      let data = event.clipboardData?.getData("text") || "";
       data = data.split("");
       inputs.forEach((input, index) => setValue(input, data[index]));
       event.preventDefault();
@@ -39,17 +25,14 @@ export default function RHFCodes({
     };
   }, [inputs, setValue]);
 
-  const handleChangeWithNextField = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    handleChange: (value: string) => void
-  ) => {
+  const handleChangeWithNextField = (event, handleChange) => {
     const { maxLength, value, name: fieldName } = event.target;
 
     const fieldIndex = fieldName.replace(name, "");
 
     const fieldIntIndex = Number(fieldIndex);
 
-    const nextField = document.querySelector<HTMLInputElement>(
+    const nextField = document.querySelector(
       `input[name=${name}${fieldIntIndex + 1}]`
     );
 
@@ -73,7 +56,7 @@ export default function RHFCodes({
               error={!!error}
               autoFocus={index === 0}
               placeholder="-"
-              onChange={(event: any) => {
+              onChange={(event) => {
                 handleChangeWithNextField(event, field.onChange);
               }}
               onFocus={(event) => event.currentTarget.select()}
@@ -86,7 +69,7 @@ export default function RHFCodes({
               }}
               onInput={(event) => {
                 // Allow only numbers
-                const inputElement = event.target as HTMLInputElement;
+                const inputElement = event.target;
                 inputElement.value = inputElement.value.replace(/[^0-9]/g, "");
               }}
               inputProps={{
@@ -100,3 +83,8 @@ export default function RHFCodes({
     </Stack>
   );
 }
+
+RHFCodes.propTypes = {
+  name: PropTypes.string,
+  inputs: PropTypes.arrayOf(PropTypes.string),
+};
