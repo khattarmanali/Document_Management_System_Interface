@@ -57,6 +57,7 @@ const VerifyOtp = (props) => {
     const response = await verifyOtp(payload);
     if (response.status === true) {
       showAlert("success", "OTP verified successfully");
+      console.log(response, "response");
       dispatch({ type: "SET_TOKEN", payload: response.token });
     } else {
       showAlert("error", response?.data);
