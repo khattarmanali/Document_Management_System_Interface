@@ -14,7 +14,7 @@ const AppRoutes = () => {
     } else {
       navigate("/auth/login");
     }
-  }, [navigate]);
+  }, [navigate, state.token]);
 
   return (
     <Routes>

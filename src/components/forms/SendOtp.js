@@ -109,7 +109,6 @@ const SendOtp = (props) => {
             spacing={2}
             justifyContent="center"
             sx={{
-              width: "100%",
               my: "2rem",
             }}
             alignItems="center"
@@ -120,7 +119,7 @@ const SendOtp = (props) => {
               type="submit"
               disabled={values.mobileNumber.length !== 10}
             >
-              Login Now
+              Send OTP
             </AppButton>
           </Stack>
         </FormProvider>
