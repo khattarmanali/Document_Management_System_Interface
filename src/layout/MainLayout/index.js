@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 
 // material-ui
@@ -9,11 +9,10 @@ import { useMediaQuery, AppBar, Box, Toolbar } from "@mui/material";
 import { drawerWidth } from "../../config";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import { UserContext } from "../../contexts/UserContext";
 
 // custom style
 const Main = styled((props) => <main {...props} />)(({ theme }) => ({
-  width: "100%",
-  minHeight: "100vh",
   flexGrow: 1,
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
@@ -35,6 +34,8 @@ const OutletDiv = styled((props) => <div {...props} />)(({ theme }) => ({
 // ==============================|| MAIN LAYOUT ||============================== //
 
 const MainLayout = () => {
+  const { dispatch, state } = useContext(UserContext);
+
   const theme = useTheme();
   const matchUpMd = useMediaQuery(theme.breakpoints.up("md"));
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -48,31 +49,42 @@ const MainLayout = () => {
   }, [matchUpMd]);
 
   return (
-    <Box sx={{ display: "flex", width: "100%" }}>
-      <AppBar position="fixed" sx={{ zIndex: 1200 }}>
-        <Toolbar>
-          <Header drawerOpen={drawerOpen} drawerToggle={handleDrawerToggle} />
-        </Toolbar>
-      </AppBar>
-      <Sidebar drawerOpen={drawerOpen} drawerToggle={handleDrawerToggle} />
-      <Main
-        style={{
-          ...(drawerOpen && {
-            transition: theme.transitions.create("margin", {
-              easing: theme.transitions.easing.easeOut,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-            marginLeft: 0,
-            marginRight: "inherit",
-          }),
-        }}
-      >
-        <Box sx={theme.mixins.toolbar} />
-        <OutletDiv>
-          <Outlet />
-        </OutletDiv>
-      </Main>
-    </Box>
+    <>
+      {state.token !== null &&
+      state.token !== undefined &&
+      state.token !== "" ? (
+        <Box sx={{ display: "flex", width: "100%" }}>
+          <AppBar position="fixed" sx={{ zIndex: 1200 }}>
+            <Toolbar>
+              <Header
+                drawerOpen={drawerOpen}
+                drawerToggle={handleDrawerToggle}
+              />
+            </Toolbar>
+          </AppBar>
+          <Sidebar drawerOpen={drawerOpen} drawerToggle={handleDrawerToggle} />
+          <Main
+            style={{
+              ...(drawerOpen && {
+                transition: theme.transitions.create("margin", {
+                  easing: theme.transitions.easing.easeOut,
+                  duration: theme.transitions.duration.enteringScreen,
+                }),
+                marginLeft: 0,
+                marginRight: "inherit",
+              }),
+            }}
+          >
+            <Box sx={theme.mixins.toolbar} />
+            <OutletDiv>
+              <Outlet />
+            </OutletDiv>
+          </Main>
+        </Box>
+      ) : (
+        <Outlet />
+      )}
+    </>
   );
 };
 

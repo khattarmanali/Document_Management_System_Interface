@@ -30,11 +30,6 @@ const RHFTextField = ({ name, helperText, label, ...other }) => {
       render={({ field, fieldState: { error } }) => (
         <TextField
           {...field}
-          InputProps={{
-            style: {
-              borderRadius: "10px",
-            },
-          }}
           label={label || name}
           className={classes.input}
           fullWidth

@@ -33,30 +33,28 @@ const SendOtp = (props) => {
 
   const onSubmit = async (data) => {
     console.log(data, "data");
-    generateOtp(data.mobileNumber);
+    const response = await generateOtp(data.mobileNumber);
 
-    // updateUserData("mobileNumber", data.mobileNumber);
-    // mutate(data, {
-    //   onSuccess: (data) => {
-    //     showAlert("success", "Otp Send Successfully");
-    //     sendOtp();
-    //   },
-    //   onError: (error) => {
-    //     console.log(error, "error");
-    //   },
-    // });
+    if (response.status === true) {
+      sendOtp();
+      updateUserData("mobileNumber", data.mobileNumber);
+      showAlert("success", "OTP sent successfully");
+    } else {
+      console.log(response?.data, "response");
+      showAlert("error", response?.data);
+    }
   };
 
   return (
     <Stack
       spacing={2}
       direction="column"
+      justifyContent="center"
+      alignItems="center"
       sx={{
         width: "100%",
         height: "100%",
       }}
-      justifyContent="center"
-      alignItems="center"
     >
       {/* Assuming `AppModal` takes `open` and `onClose` as props */}
       <Box
@@ -92,7 +90,17 @@ const SendOtp = (props) => {
                 maxLength: 10,
                 inputMode: "numeric",
                 pattern: "[0-9]*",
-                type: "tel",
+                type: "number",
+                // onhove hide the icrease and decrease button
+                style: { WebkitAppearance: "none" },
+              }}
+              placeholder="Enter your mobile number"
+              fullWidth
+              required
+              sx={{
+                "& input[type=number]": {
+                  MozAppearance: "textfield",
+                },
               }}
             />
           </Stack>

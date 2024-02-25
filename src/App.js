@@ -14,6 +14,7 @@ function App() {
           <UserProvider>
             <BrowserRouter>
               <MainLayout />
+
               <AppRoutes />
               <AppSnackBar />
             </BrowserRouter>

@@ -44,6 +44,7 @@ const Alert = forwardRef((props, ref) => {
 const AppSnackBar = () => {
   const theme = useTheme();
   const { alertInfo, hideAlert } = useAlert();
+  console.log(alertInfo, "alertInfo");
 
   const TransitionRight = (props) => {
     return <Slide {...props} direction="left" timeout={1000} />;
@@ -59,8 +60,6 @@ const AppSnackBar = () => {
             sx={{
               width: "80%",
               "& .MuiSnackbarContent-root": {
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
                 borderRadius: "0.5rem",
                 width: "100%",
               },

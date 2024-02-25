@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, CardContent, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
 import SendOtp from "../../components/forms/SendOtp";
 import VerifyOtp from "../../components/forms/VerifyOtp";
 import { UserContext } from "../../contexts/UserContext";
 import { useAlert } from "../../contexts/AlertProvider";
+import login from "../../assets/images/login.avif";
 
 const LoginWithOtp = (props) => {
   const { dispatch, state } = useContext(UserContext);
@@ -23,11 +24,8 @@ const LoginWithOtp = (props) => {
       ...prevState,
       [key]: value,
     }));
+    console.log(tempUser, "tempUser");
   };
-
-  useEffect(() => {
-    showAlert("success", "Otp Send Successfully");
-  }, [isOtpSend]);
 
   return (
     <Stack
@@ -36,25 +34,29 @@ const LoginWithOtp = (props) => {
       sx={{
         height: "100%",
         width: "100%",
+        minHeight: "100vh",
       }}
     >
-      <Card sx={{ maxWidth: 400 }}>
+      <Card sx={{ width: "90%" }}>
         <CardContent>
-          <>
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            Login with OTP
+          </Typography>
+          <Box sx={{ mb: 2 }}>
             {!isOtpSend && (
               <SendOtp
                 sendOtp={() => setIsOtpSend(true)}
                 updateUserData={updateUserData}
               />
             )}
-            {/* {isOtpSend && (
+            {isOtpSend && (
               <VerifyOtp
                 tempUser={tempUser}
                 updateUserData={updateUserData}
                 onClose={onClose}
               />
-            )} */}
-          </>
+            )}
+          </Box>
         </CardContent>
       </Card>
     </Stack>
