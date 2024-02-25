@@ -10,12 +10,13 @@ import FormProvider from "../hook-form/FormProvider";
 import AppButton from "../buttons/AppButton";
 import { generateOtp } from "../../services/loginServices";
 import { UserContext } from "../../contexts/UserContext";
+import MainLayout from "../../layout/MainLayout";
 
 const UploadFileForm = (props) => {
   const { sendOtp, updateUserData } = props;
   const { showAlert } = useAlert();
   const { dispatch, state } = useContext(UserContext);
-  console.log(state, "state");
+  console.log(state, "hfvjvbfvbk");
 
   const defaultValues = {
     mobileNumber: "",
@@ -49,85 +50,87 @@ const UploadFileForm = (props) => {
   };
 
   return (
-    <Stack
-      spacing={2}
-      direction="column"
-      justifyContent="center"
-      alignItems="center"
-      sx={{
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      {/* Assuming `AppModal` takes `open` and `onClose` as props */}
-      <Box
+    <MainLayout>
+      <Stack
+        spacing={2}
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
         sx={{
-          height: "100%",
           width: "100%",
-          paddingX: {
-            xs: "0rem",
-            md: "1rem",
-          },
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+          height: "100%",
         }}
       >
-        <FormProvider methods={methods} onSubmit={onSubmit}>
-          {/* <Stack
-            spacing={2}
-            direction="column"
-            sx={{
-              width: "100%",
-              height: "100%",
-            }}
-            justifyContent="center"
-            alignItems="center"
-          >
-            <RHFTextField
-              name="mobileNumber"
-              label="Mobile Number"
-              InputProps={{
-                startAdornment: "+91",
-                maxLength: 10,
-                inputMode: "numeric",
-                pattern: "[0-9]*",
-                type: "number",
-                // onhove hide the icrease and decrease button
-                style: { WebkitAppearance: "none" },
-              }}
-              placeholder="Enter your mobile number"
-              fullWidth
-              required
+        {/* Assuming `AppModal` takes `open` and `onClose` as props */}
+        <Box
+          sx={{
+            height: "100%",
+            width: "100%",
+            paddingX: {
+              xs: "0rem",
+              md: "1rem",
+            },
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <FormProvider methods={methods} onSubmit={onSubmit}>
+            <Stack
+              spacing={2}
+              direction="column"
               sx={{
-                "& input[type=number]": {
-                  MozAppearance: "textfield",
-                },
+                width: "100%",
+                height: "100%",
               }}
-            />
-          </Stack>
-          <Stack
-            direction="row"
-            spacing={2}
-            justifyContent="center"
-            sx={{
-              my: "2rem",
-            }}
-            alignItems="center"
-          >
-            <AppButton
-              variant="contained"
-              color="primary"
-              type="submit"
-              disabled={values.mobileNumber.length !== 10}
+              justifyContent="center"
+              alignItems="center"
             >
-              Send OTP
-            </AppButton>
-          </Stack> */}
-        </FormProvider>
-      </Box>
-    </Stack>
+              <RHFTextField
+                name="mobileNumber"
+                label="Mobile Number"
+                InputProps={{
+                  startAdornment: "+91",
+                  maxLength: 10,
+                  inputMode: "numeric",
+                  pattern: "[0-9]*",
+                  type: "number",
+                  // onhove hide the icrease and decrease button
+                  style: { WebkitAppearance: "none" },
+                }}
+                placeholder="Enter your mobile number"
+                fullWidth
+                required
+                sx={{
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
+              />
+            </Stack>
+            <Stack
+              direction="row"
+              spacing={2}
+              justifyContent="center"
+              sx={{
+                my: "2rem",
+              }}
+              alignItems="center"
+            >
+              <AppButton
+                variant="contained"
+                color="primary"
+                type="submit"
+                disabled={values.mobileNumber.length !== 10}
+              >
+                Send OTP
+              </AppButton>
+            </Stack>
+          </FormProvider>
+        </Box>
+      </Stack>
+    </MainLayout>
   );
 };
 

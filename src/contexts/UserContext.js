@@ -6,6 +6,7 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
+  console.log(action, "action");
   switch (action.type) {
     case "SET_TOKEN":
       return {
@@ -16,6 +17,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         mobileNumber: action.payload,
+      };
+    case "REMOVE_USER":
+      return {
+        ...state,
+        token: null,
+        mobileNumber: null,
       };
     default:
       return state;
@@ -41,8 +48,16 @@ export const UserProvider = ({ children }) => {
 
   // Persist data to localStorage when state changes
   useEffect(() => {
-    localStorage.setItem("token", state.token);
-    localStorage.setItem("mobileNumber", state.mobileNumber);
+    if (state.token) {
+      localStorage.setItem("token", state.token);
+    } else {
+      localStorage.removeItem("token");
+    }
+    if (state.mobileNumber) {
+      localStorage.setItem("mobileNumber", state.mobileNumber);
+    } else {
+      localStorage.removeItem("mobileNumber");
+    }
   }, [state.token, state.mobileNumber]);
 
   return (

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useContext } from "react";
 
 // material-ui
 import { useTheme, styled } from "@mui/material/styles";
@@ -15,6 +15,8 @@ import NavCard from "./MenuList/NavCard";
 
 // assets
 import logo from "../../../assets/images/logo.svg";
+import AppButton from "../../../components/buttons/AppButton";
+import { UserContext } from "../../../contexts/UserContext";
 
 // custom style
 const Nav = styled((props) => <nav {...props} />)(({ theme }) => ({
@@ -27,6 +29,8 @@ const Nav = styled((props) => <nav {...props} />)(({ theme }) => ({
 // ==============================|| SIDEBAR ||============================== //
 
 const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
+  const { dispatch, state } = useContext(UserContext);
+
   const theme = useTheme();
   const matchUpMd = useMediaQuery(theme.breakpoints.up("md"));
   const drawer = (
@@ -55,6 +59,15 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
         style={{ height: "calc(100vh - 65px)", padding: "10px" }}
       >
         <MenuList />
+        <AppButton
+          fullWidth
+          color="primary"
+          variant="contained"
+          sx={{ mt: 2 }}
+          onClick={() => dispatch({ type: "REMOVE_USER" })}
+        >
+          Logout
+        </AppButton>
       </PerfectScrollbar>
     </>
   );

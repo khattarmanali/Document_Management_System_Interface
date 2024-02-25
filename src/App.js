@@ -13,8 +13,6 @@ function App() {
         <AlertProvider>
           <UserProvider>
             <BrowserRouter>
-              <MainLayout />
-
               <AppRoutes />
               <AppSnackBar />
             </BrowserRouter>

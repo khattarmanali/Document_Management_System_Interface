@@ -3,7 +3,7 @@ import React from "react";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
-import { Box, Grid, IconButton } from "@mui/material";
+import { Box, Button, Grid, IconButton } from "@mui/material";
 
 // project import
 import SearchSection from "./SearchSection";
@@ -14,6 +14,7 @@ import { drawerWidth } from "../../../config";
 // assets
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import logo from "../../../assets/images/logo.svg";
+import AppButton from "../../../components/buttons/AppButton";
 
 // ==============================|| HEADER ||============================== //
 

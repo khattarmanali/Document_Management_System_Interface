@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { styled, useTheme } from "@mui/material/styles";
-import { useMediaQuery, AppBar, Box, Toolbar } from "@mui/material";
+import { useMediaQuery, AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { drawerWidth } from "../../config";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -27,18 +27,7 @@ const OutletDiv = styled((props) => <div {...props} />)(({ theme }) => ({
   padding: theme.spacing(5),
 }));
 
-const MainLayoutWrapper = () => {
-  const { state } = useContext(UserContext);
-
-  // Check if the token is not equal to the string "null"
-  if (state.token !== "null") {
-    return <MainLayout />;
-  }
-
-  return null; // Render nothing if the token is "null"
-};
-
-const MainLayout = () => {
+const MainLayout = ({ children }) => {
   const { state } = useContext(UserContext);
 
   const theme = useTheme();
@@ -54,32 +43,35 @@ const MainLayout = () => {
   }, [matchUpMd]);
 
   return (
-    <Box sx={{ display: "flex", width: "100%" }}>
-      <AppBar position="fixed" sx={{ zIndex: 1200 }}>
-        <Toolbar>
-          <Header drawerOpen={drawerOpen} drawerToggle={handleDrawerToggle} />
-        </Toolbar>
-      </AppBar>
-      <Sidebar drawerOpen={drawerOpen} drawerToggle={handleDrawerToggle} />
-      <Main
-        style={{
-          ...(drawerOpen && {
-            transition: theme.transitions.create("margin", {
-              easing: theme.transitions.easing.easeOut,
-              duration: theme.transitions.duration.enteringScreen,
+    <>
+      <Box sx={{ display: "flex", width: "100%" }}>
+        <AppBar position="fixed" sx={{ zIndex: 1200 }}>
+          <Toolbar>
+            <Header drawerOpen={drawerOpen} drawerToggle={handleDrawerToggle} />
+          </Toolbar>
+        </AppBar>
+        <Sidebar drawerOpen={drawerOpen} drawerToggle={handleDrawerToggle} />
+        <Main
+          style={{
+            ...(drawerOpen && {
+              transition: theme.transitions.create("margin", {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.enteringScreen,
+              }),
+              marginLeft: 0,
+              marginRight: "inherit",
             }),
-            marginLeft: 0,
-            marginRight: "inherit",
-          }),
-        }}
-      >
-        <Box sx={theme.mixins.toolbar} />
-        <OutletDiv>
-          <Outlet />
-        </OutletDiv>
-      </Main>
-    </Box>
+          }}
+        >
+          <Box sx={theme.mixins.toolbar} />
+          <OutletDiv>
+            <Outlet />
+            {children}
+          </OutletDiv>
+        </Main>
+      </Box>
+    </>
   );
 };
 
-export default MainLayoutWrapper;
+export default MainLayout;
