@@ -31,7 +31,7 @@ function Dashbroad() {
       <Stack
         spacing={2}
         direction="row"
-        justifyContent="flex-end"
+        justifyContent="center"
         alignItems="center"
         sx={{ width: "100%", my: 3 }}
       >

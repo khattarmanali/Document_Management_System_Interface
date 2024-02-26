@@ -8,7 +8,11 @@ import HomeSection from "../sections/HomeSection";
 const AppRoutes = () => {
   const navigate = useNavigate();
   const { state } = useContext(UserContext);
-
+  useEffect(() => {
+    if (state?.token === null) {
+      navigate("/");
+    }
+  }, [state?.token, navigate]);
   return (
     <Routes>
       <Route path="/app/dashboard" element={<UploadFileForm />} />

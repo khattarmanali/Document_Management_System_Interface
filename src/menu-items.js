@@ -36,7 +36,7 @@ export default {
           title: "Dashboard",
           type: "item",
           icon: icons["HomeOutlinedIcon"],
-          url: "/dashboard/default",
+          url: "/",
         },
         {
           id: "auth",

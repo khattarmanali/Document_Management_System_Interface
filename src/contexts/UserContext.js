@@ -1,7 +1,8 @@
 import React, { createContext, useReducer, useEffect } from "react";
 
 const initialState = {
-  token: null,
+  token:
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpcF9hZGRyZXNzIjoiOjoxIiwidW5pcXVlX2lkIjoiOTMwMzAyMDAwNCIsInVzZXJfbmFtZSI6IjkzMDMwMjAwMDQiLCJhY2Nlc3NfdHlwZSI6ImVtcCIsIm1vYmlsZSI6IjkzMDMwMjAwMDQiLCJjbGllbnRfaWQiOiJhbGxzb2Z0IiwiZXhwIjoxNzEwNjY4MTE0fQ.Z28h-r9rpZpWIymyOAvQ0xTZHaHeB-rIYFLlMyW3pso",
   mobileNumber: null,
 };
 

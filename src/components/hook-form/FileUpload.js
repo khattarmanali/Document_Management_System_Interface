@@ -2,7 +2,18 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { Box, TextField } from "@mui/material";
 import React, { useRef, useState } from "react";
 
-export default function FileUpload() {
+export default function FileUpload({
+  name,
+  label,
+  helperText,
+  accept,
+  multiple,
+  disabled,
+  fullWidth,
+  required,
+  handleFileUploader,
+  ...other
+}) {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
@@ -12,6 +23,7 @@ export default function FileUpload() {
 
     if (selectedFile) {
       setFile(selectedFile);
+      handleFileUploader(selectedFile);
 
       const reader = new FileReader();
       reader.onloadend = () => {

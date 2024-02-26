@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import { Controller, useFormContext } from "react-hook-form";
 import React from "react";
 
-export function RHFSelect({
+export default function RHFSelect({
   name,
   native,
   children,
@@ -89,7 +89,7 @@ export function RHFMultiSelect({
       selectedIds.includes(item.value)
     );
 
-    if (!selectedItems.length && placeholder) {
+    if (!selectedItems?.length && placeholder) {
       return (
         <Box component="em" sx={{ color: "text.disabled" }}>
           {placeholder}

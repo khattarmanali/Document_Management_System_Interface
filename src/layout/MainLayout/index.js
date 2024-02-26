@@ -20,10 +20,7 @@ const Main = styled((props) => <main {...props} />)(({ theme }) => ({
 }));
 
 const OutletDiv = styled((props) => <div {...props} />)(({ theme }) => ({
-  [theme.breakpoints.down("md")]: {
-    padding: theme.spacing(3),
-    border: "2px solid red",
-  },
+  [theme.breakpoints.down("md")]: {},
   padding: theme.spacing(5),
 }));
 
@@ -60,6 +57,7 @@ const MainLayout = ({ children }) => {
               }),
               marginLeft: 0,
               marginRight: "inherit",
+              overflowX: "hidden",
             }),
           }}
         >
