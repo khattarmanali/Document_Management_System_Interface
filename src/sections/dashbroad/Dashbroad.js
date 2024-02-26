@@ -135,14 +135,13 @@ function Dashbroad() {
     // Perform search logic here based on values.major_head, values.minor_head, etc.
     const results = files.filter((file) => {
       // Implement your search criteria here, for example:
+      console.log("file", file);
       return (
-        file.major_head === values.major_head &&
-        file.minor_head === values.minor_head &&
-        file.document_date >= values.from_date &&
-        file.document_date <= values.to_date
+        file.major_head.toLowerCase() === values.major_head.toLowerCase() &&
+        file.minor_head.toLowerCase() === values.minor_head.toLowerCase()
       );
     });
-    setSearchResults(results);
+    setFiles(results);
   };
 
   return (
