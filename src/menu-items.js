@@ -48,7 +48,7 @@ export default {
               id: "login-1",
               title: "Login",
               type: "item",
-              url: "/dashboard/login",
+              url: "/login",
               target: true,
             },
           ],

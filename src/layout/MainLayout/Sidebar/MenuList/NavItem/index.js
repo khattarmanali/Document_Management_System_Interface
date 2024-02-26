@@ -36,9 +36,7 @@ const NavItem = ({ item, level }) => {
   );
 
   let itemTarget = "";
-  if (item.target) {
-    itemTarget = "_blank";
-  }
+
   let listItemProps = { component: Link, to: item.url };
   if (item.external) {
     listItemProps = { component: "a", href: item.url };
